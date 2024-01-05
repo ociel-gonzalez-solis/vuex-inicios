@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <h1>Counter - Vuex</h1>
-  <h2>Vuex: {{$store.state.count}}</h2>
+  <h2>Vuex: {{$store.state.counter.count}}</h2>
   <h2>Computed: {{countComputed}}</h2>
 
   <button @click="increment">+1</button>
@@ -15,15 +15,15 @@
 </template>
 
 <script>
-import { mapState, mapActions,  } from 'vuex'
+import { mapState, mapActions,  } from 'vuex';
 
 export default {
     // computed: mapState(['count']),
     computed: {
         countComputed(){
-            return this.$store.state.count;
+            return this.$store.state.counter.count;
         },
-        ...mapState(['count', 'lastMutation', 'isLoading']), //Mejor manera
+        ...mapState('counter', ['count', 'lastMutation', 'isLoading']), //Mejor manera
         // ...mapState({
         //     count       : state => state.count,
         //     lastMutation: state => state.lastMutation
@@ -31,15 +31,15 @@ export default {
     },
     methods: {
         increment(){
-            return this.$store.commit('increment');
+            return this.$store.commit('counter/increment');
         },
         incrementBy(){
-            return this.$store.commit('incrementBy', 5);
+            return this.$store.commit('counter/incrementBy', 5);
         },
         // incrementRandomInt(){
         //     return this.$store.dispatch('incrementRandomInt');
         // },
-        ...mapActions(['incrementRandomInt'])
+        ...mapActions('counter', ['incrementRandomInt'])
     },
 }
 </script>
